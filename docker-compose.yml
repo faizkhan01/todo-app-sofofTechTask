@@ -15,14 +15,21 @@ services:
     networks:
       - todo-network
 
-  adminer:
-    image: adminer
-    container_name: adminer-ui
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: pma-ui
     restart: always
     ports:
-      - "8080:8080"
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql                    # Points to the MySQL service
+      PMA_USER: todo_user               # Non-root user
+      PMA_PASSWORD: todo_pass           # Password for todo_user
+      PMA_ARBITRARY: 1                  # Allows login with arbitrary users (optional)
     networks:
       - todo-network
+    depends_on:
+      - mysql
 
 networks:
   todo-network:
