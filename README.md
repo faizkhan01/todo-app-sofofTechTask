@@ -104,6 +104,13 @@ The backend will be available at `http://localhost:3000` by default.
 
 The frontend will be available at `http://localhost:3001`.
 
+## Sign in Instructions
+
+To access the application, use the following Sign in credentials:
+
+- **username**: nayeem  
+- **password**: NAYEEMkhan1
+
 ## Available Scripts
 
 ### Backend
