@@ -15,10 +15,10 @@ A full-stack Todo application built with Next.js, NestJS, and MySQL. This applic
 
 Before you begin, ensure you have the following installed:
 
-- Node.js (v16 or later)
+- Node.js (v18 or later)
 - npm or yarn
 - MySQL Server (v8.0 or later)
-- Docker (optional, for containerized database)
+- Docker (For containerized database)
 
 ## Tech Stack
 
