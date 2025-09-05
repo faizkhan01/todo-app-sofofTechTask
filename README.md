@@ -78,6 +78,22 @@ cd todo-app-sofofTechTask
 
 The backend will be available at `http://localhost:3000` by default.
 
+6. Running Tests:
+The backend uses Jest (default with NestJS) for unit and e2e testing.
+   ```bash
+   # Run all tests
+   npm run test
+
+   # Run tests in watch mode
+   npm run test:watch
+
+   # Run test coverage
+   npm run test:cov
+
+   # Run end-to-end tests
+   npm run test:e2e
+   ```
+
 ### 3. Set Up Frontend
 
 1. Open a new terminal and navigate to the frontend directory:
