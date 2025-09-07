@@ -59,11 +59,9 @@ cd todo-app-sofofTechTask
    
    Or manually create a MySQL database named `todo_db`.
 
-4. Run database migrations and seed the database:
+4. Run database migrations:
    ```bash
    npm run migration:run
-
-   npm run seed:user
    ```
 
 5. Start the backend server:
@@ -120,12 +118,27 @@ The backend uses Jest (default with NestJS) for unit and e2e testing.
 
 The frontend will be available at `http://localhost:3001`.
 
-## Sign in Instructions
+## Getting Started with the Application
 
-To access the application, use the following Sign in credentials:
+### Sign Up
+1. Navigate to the frontend application at `http://localhost:3001`
+2. Click on "create a new account" link
+3. Fill in the registration form with:
+   - Username (minimum 3 characters, letters and numbers only)
+   - Password (minimum 6 characters)
+   - Confirm password
+4. Click "Create account" to register
 
-- **username**: nayeem  
-- **password**: NAYEEMkhan1
+### Sign In
+1. Navigate to the login page at `http://localhost:3001/login`
+2. Enter your username and password
+3. Click "Sign in" to access your todo dashboard
+
+### Using the Todo Application
+- **Create Todos**: Add new tasks using the form at the top
+- **Filter Todos**: Use the filter bar to view todos by status (All, Pending, In Progress, Done)
+- **Update Status**: Click on todo items to cycle through statuses
+- **Delete Todos**: Click the delete button to remove completed tasks
 
 ## Available Scripts
 
