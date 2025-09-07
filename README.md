@@ -15,10 +15,10 @@ A full-stack Todo application built with Next.js, NestJS, and MySQL. This applic
 
 Before you begin, ensure you have the following installed:
 
-- Node.js (v16 or later)
+- Node.js (v18 or later)
 - npm or yarn
 - MySQL Server (v8.0 or later)
-- Docker (optional, for containerized database)
+- Docker (For containerized database)
 
 ## Tech Stack
 
@@ -77,6 +77,22 @@ cd todo-app-sofofTechTask
    ```
 
 The backend will be available at `http://localhost:3000` by default.
+
+6. Running Tests:
+The backend uses Jest (default with NestJS) for unit and e2e testing.
+   ```bash
+   # Run all tests
+   npm run test
+
+   # Run tests in watch mode
+   npm run test:watch
+
+   # Run test coverage
+   npm run test:cov
+
+   # Run end-to-end tests
+   npm run test:e2e
+   ```
 
 ### 3. Set Up Frontend
 

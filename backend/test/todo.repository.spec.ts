@@ -62,6 +62,7 @@ describe('TypeOrmTodoRepository', () => {
       const todoData = { title: 'Test Todo' };
       const result = await repository.create(todoData);
 
+
       expect(todoRepo.create).toHaveBeenCalledWith(todoData);
       expect(todoRepo.save).toHaveBeenCalledWith(mockTodo);
       expect(result).toEqual(mockTodo);
@@ -112,6 +113,7 @@ describe('TypeOrmTodoRepository', () => {
       const userId = 'user-123';
       const updateData = { title: 'Updated Todo' };
       const updatedTodo = { ...mockTodo, ...updateData };
+
 
       mockTodoRepository.findOne.mockResolvedValueOnce(updatedTodo);
 
