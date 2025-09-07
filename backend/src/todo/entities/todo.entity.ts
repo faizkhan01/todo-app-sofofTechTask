@@ -4,8 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { TodoStatus } from '../types';
+import { User } from '../../user/entities/user.entity';
 
 @Entity('todos')
 export class Todo {
@@ -34,4 +37,11 @@ export class Todo {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ type: 'uuid', nullable: false })
+  userId: string;
 }

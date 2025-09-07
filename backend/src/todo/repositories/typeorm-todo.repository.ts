@@ -17,21 +17,24 @@ export class TypeOrmTodoRepository implements TodoRepoInterface {
     return this.todo.save(newTodo);
   }
 
-  async findAll(status?: TodoStatus): Promise<Todo[]> {
-    const where = status ? { status } : {};
+  async findAll(userId: string, status?: TodoStatus): Promise<Todo[]> {
+    const where: any = { userId };
+    if (status) {
+      where.status = status;
+    }
     return this.todo.find({ where });
   }
 
-  async findById(id: string): Promise<Todo | null> {
-    return this.todo.findOne({ where: { id } });
+  async findById(id: string, userId: string): Promise<Todo | null> {
+    return this.todo.findOne({ where: { id, userId } });
   }
 
-  async update(id: string, data: Partial<Todo>): Promise<Todo> {
-    await this.todo.update(id, data);
-    return this.findById(id);
+  async update(id: string, data: Partial<Todo>, userId: string): Promise<Todo> {
+    await this.todo.update({ id, userId }, data);
+    return this.findById(id, userId);
   }
 
-  async delete(id: string): Promise<void> {
-    await this.todo.delete(id);
+  async delete(id: string, userId: string): Promise<void> {
+    await this.todo.delete({ id, userId });
   }
 }

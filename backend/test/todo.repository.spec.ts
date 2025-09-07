@@ -61,7 +61,7 @@ describe('TypeOrmTodoRepository', () => {
     it('should create a todo', async () => {
       const todoData = { title: 'Test Todo' };
       const result = await repository.create(todoData);
-      
+
       expect(todoRepo.create).toHaveBeenCalledWith(todoData);
       expect(todoRepo.save).toHaveBeenCalledWith(mockTodo);
       expect(result).toEqual(mockTodo);
@@ -70,17 +70,19 @@ describe('TypeOrmTodoRepository', () => {
 
   describe('findAll', () => {
     it('should return all todos when no status is provided', async () => {
-      const result = await repository.findAll();
-      
-      expect(todoRepo.find).toHaveBeenCalledWith({ where: {} });
+      const userId = 'user-123';
+      const result = await repository.findAll(userId);
+
+      expect(todoRepo.find).toHaveBeenCalledWith({ where: { userId } });
       expect(result).toEqual([mockTodo, mockTodo2]);
     });
 
     it('should return filtered todos when status is provided', async () => {
+      const userId = 'user-123';
       const status = 'PENDING' as TodoStatus;
-      const result = await repository.findAll(status);
-      
-      expect(todoRepo.find).toHaveBeenCalledWith({ where: { status } });
+      const result = await repository.findAll(userId, status);
+
+      expect(todoRepo.find).toHaveBeenCalledWith({ where: { userId, status } });
       expect(result).toHaveLength(2);
     });
   });
@@ -88,17 +90,18 @@ describe('TypeOrmTodoRepository', () => {
   describe('findById', () => {
     it('should return a todo by id', async () => {
       const todoId = 'uuid-123';
-      const result = await repository.findById(todoId);
-      
-      expect(todoRepo.findOne).toHaveBeenCalledWith({ where: { id: todoId } });
+      const userId = 'user-123';
+      const result = await repository.findById(todoId, userId);
+
+      expect(todoRepo.findOne).toHaveBeenCalledWith({ where: { id: todoId, userId } });
       expect(result).toEqual(mockTodo);
     });
 
     it('should return null when todo is not found', async () => {
       mockTodoRepository.findOne.mockResolvedValueOnce(null);
-      
-      const result = await repository.findById('non-existent-id');
-      
+
+      const result = await repository.findById('non-existent-id', 'user-123');
+
       expect(result).toBeNull();
     });
   });
@@ -106,15 +109,16 @@ describe('TypeOrmTodoRepository', () => {
   describe('update', () => {
     it('should update a todo', async () => {
       const todoId = 'uuid-123';
+      const userId = 'user-123';
       const updateData = { title: 'Updated Todo' };
       const updatedTodo = { ...mockTodo, ...updateData };
-      
+
       mockTodoRepository.findOne.mockResolvedValueOnce(updatedTodo);
-      
-      const result = await repository.update(todoId, updateData);
-      
-      expect(todoRepo.update).toHaveBeenCalledWith(todoId, updateData);
-      expect(todoRepo.findOne).toHaveBeenCalledWith({ where: { id: todoId } });
+
+      const result = await repository.update(todoId, updateData, userId);
+
+      expect(todoRepo.update).toHaveBeenCalledWith({ id: todoId, userId }, updateData);
+      expect(todoRepo.findOne).toHaveBeenCalledWith({ where: { id: todoId, userId } });
       expect(result).toEqual(updatedTodo);
     });
   });
@@ -122,9 +126,10 @@ describe('TypeOrmTodoRepository', () => {
   describe('delete', () => {
     it('should delete a todo', async () => {
       const todoId = 'uuid-123';
-      
-      await expect(repository.delete(todoId)).resolves.not.toThrow();
-      expect(todoRepo.delete).toHaveBeenCalledWith(todoId);
+      const userId = 'user-123';
+
+      await expect(repository.delete(todoId, userId)).resolves.not.toThrow();
+      expect(todoRepo.delete).toHaveBeenCalledWith({ id: todoId, userId });
     });
   });
 });

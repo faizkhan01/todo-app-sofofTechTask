@@ -13,6 +13,7 @@ export class TodoService {
   async create(todoData: {
     title: string;
     description?: string;
+    userId: string;
   }): Promise<Todo> {
     return this.todoRepository.create({
       ...todoData,
@@ -20,12 +21,12 @@ export class TodoService {
     });
   }
 
-  async findAll(status?: TodoStatus): Promise<Todo[]> {
-    return this.todoRepository.findAll(status);
+  async findAll(userId: string, status?: TodoStatus): Promise<Todo[]> {
+    return this.todoRepository.findAll(userId, status);
   }
 
-  async findById(id: string): Promise<Todo> {
-    const todo = await this.todoRepository.findById(id);
+  async findById(id: string, userId: string): Promise<Todo> {
+    const todo = await this.todoRepository.findById(id, userId);
     if (!todo) throw new Error(`Todo with ID ${id} not found`);
     return todo;
   }
@@ -33,11 +34,12 @@ export class TodoService {
   async update(
     id: string,
     data: { title?: string; description?: string; status?: TodoStatus },
+    userId: string,
   ): Promise<Todo> {
-    return this.todoRepository.update(id, data);
+    return this.todoRepository.update(id, data, userId);
   }
 
-  async delete(id: string): Promise<void> {
-    return this.todoRepository.delete(id);
+  async delete(id: string, userId: string): Promise<void> {
+    return this.todoRepository.delete(id, userId);
   }
 }
